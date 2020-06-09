@@ -1,0 +1,91 @@
+---
+title: "segmentation_judgments"
+author: "Jessica E. Kosie"
+date: "2/28/2020"
+output: word_document
+---
+
+```{r setup, include=FALSE}
+
+library(tidyverse); library(here); library(assertthat); library(lme4); library(lmerTest); library(nortest); library(DT); library(ltm)
+
+source("helper/file_read_helper.R")
+
+# make sure summary() uses Type III sums of squares
+afex::set_sum_contrasts()
+
+# turn off scientific notation
+options(scipen = 999)
+```
+# read in file and transform to correct alignment
+```{r read file}
+
+seg <- read_csv("data/raw_segmentation_judgments.csv")
+
+#transpose file
+seg <- seg %>% 
+  gather(key = "RA", value = "judgment", 3:ncol(seg))
+
+#remove first and last slides
+seg <- seg %>% 
+  filter(slide_number != 1 & slide_number != 20)
+
+```
+# take a look at judgments
+```{r look at judgments}
+
+#sum up the number of judgments for each slide and each condition
+seg_summary <- seg %>% 
+  group_by(condition, slide_number) %>% 
+  summarise(total = sum(judgment, na.rm = TRUE))
+
+ggplot(seg_summary, aes(x = slide_number, y = total, color = condition)) +
+  geom_line() +
+  geom_point() +
+  facet_wrap(~condition, ncol = 1)
+
+```
+# look at agreement with expert judgments
+```{r expert agreement}
+#read in expert judgments
+expert <- read_csv("data/slide_types.csv")
+
+# get only the judgments I want
+expert <- expert %>% 
+  filter(run == "first") %>% 
+  dplyr::select(slide_num_adj, slide_type) %>% 
+  rename(slide_number = slide_num_adj)
+
+seg_summary <- seg_summary %>% 
+  left_join(expert)
+
+seg_summary <- seg_summary %>% 
+  ungroup() %>% 
+  mutate(condition = recode(condition, barrier = "Reach Over Barrier",
+                            nothing = "Reach Over Nothing", 
+                            straight = "Straight Reach"))
+
+# add lines where boundaries are in expert judgments
+ggplot(seg_summary) +
+  geom_line(aes(x = slide_number, y = total, color = condition)) +
+  geom_point(aes(x = slide_number, y = total, color = condition)) +
+  facet_wrap(~condition, ncol = 1) +
+  geom_vline(data = filter(expert, slide_type == "boundary"), mapping = aes(xintercept = slide_number), color = "purple", linetype = "dashed") +
+  labs(title = "Comparison of Naive and Expert Boundary Judgments", subtitle = "Purple Line Represents Expert Judgments", x = "Slide Number", y = "Number of Naive Coders Nominating a Boundary", color = "Slideshow")
+
+# calculate point biserial correlation
+biserial.cor(x = seg_summary$total, y = seg_summary$slide_type)
+
+# it's the same as a pearson correlation, calculate that, too
+seg_summary <- seg_summary %>% 
+  mutate(st_numeric = case_when(slide_type == "boundary" ~ 1,
+                                TRUE ~ 0))
+
+cor.test(seg_summary$total, seg_summary$st_numeric)
+```
+# write seg_summary to a data file to use later
+```{r write data file}
+
+write_csv(seg_summary, "data/seg_judgment_data.csv")
+
+```

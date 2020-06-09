@@ -1,0 +1,55 @@
+condition,slide_number,total,slide_type,st_numeric
+Reach Over Barrier,2,30,boundary,1
+Reach Over Barrier,3,0,within,0
+Reach Over Barrier,4,0,within,0
+Reach Over Barrier,5,0,within,0
+Reach Over Barrier,6,0,within,0
+Reach Over Barrier,7,0,within,0
+Reach Over Barrier,8,4,within,0
+Reach Over Barrier,9,30,boundary,1
+Reach Over Barrier,10,9,within,0
+Reach Over Barrier,11,0,within,0
+Reach Over Barrier,12,0,within,0
+Reach Over Barrier,13,0,within,0
+Reach Over Barrier,14,0,within,0
+Reach Over Barrier,15,0,within,0
+Reach Over Barrier,16,8,within,0
+Reach Over Barrier,17,30,boundary,1
+Reach Over Barrier,18,8,within,0
+Reach Over Barrier,19,0,within,0
+Reach Over Nothing,2,35,boundary,1
+Reach Over Nothing,3,0,within,0
+Reach Over Nothing,4,0,within,0
+Reach Over Nothing,5,0,within,0
+Reach Over Nothing,6,0,within,0
+Reach Over Nothing,7,0,within,0
+Reach Over Nothing,8,1,within,0
+Reach Over Nothing,9,32,boundary,1
+Reach Over Nothing,10,3,within,0
+Reach Over Nothing,11,0,within,0
+Reach Over Nothing,12,0,within,0
+Reach Over Nothing,13,0,within,0
+Reach Over Nothing,14,0,within,0
+Reach Over Nothing,15,0,within,0
+Reach Over Nothing,16,3,within,0
+Reach Over Nothing,17,34,boundary,1
+Reach Over Nothing,18,5,within,0
+Reach Over Nothing,19,0,within,0
+Straight Reach,2,34,boundary,1
+Straight Reach,3,0,within,0
+Straight Reach,4,0,within,0
+Straight Reach,5,0,within,0
+Straight Reach,6,0,within,0
+Straight Reach,7,0,within,0
+Straight Reach,8,0,within,0
+Straight Reach,9,33,boundary,1
+Straight Reach,10,15,within,0
+Straight Reach,11,1,within,0
+Straight Reach,12,0,within,0
+Straight Reach,13,0,within,0
+Straight Reach,14,0,within,0
+Straight Reach,15,0,within,0
+Straight Reach,16,0,within,0
+Straight Reach,17,34,boundary,1
+Straight Reach,18,15,within,0
+Straight Reach,19,2,within,0
