@@ -26,7 +26,7 @@ pix_data <- pix_data %>%
 
 ```
 # Take a look at the data across conditions
-```{r}
+```{r examine data across conditions}
 #plot on separate graphs
 pix_data %>% 
   ggplot(aes(x = slide_num_adj, y = pix_change, color = condition)) +
@@ -42,10 +42,13 @@ pix_data %>%
 
 ```
 # Adjust for total number of pixels in image
-```{r}
+```{r adjust for total pixels}
 pix_data <- pix_data %>% 
   mutate(pix_adj = pix_change/(599*960))
 
+```
+# Examine adjusted data
+```{r examine adjusted data}
 #plot on separate graphs
 pix_data %>% 
   ggplot(aes(x = slide_num_adj, y = pix_adj, color = condition)) +
